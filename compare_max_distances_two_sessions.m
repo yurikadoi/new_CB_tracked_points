@@ -1,7 +1,24 @@
 %%
 %first load matfiles before running this
+%%
+clear all
+disp('------------------')
+mouseID = 'CB005';
+fps = 200;
+date_of_experiment = '060521';
+path_to_save = fullfile('S:\all_analysis_results\', mouseID, date_of_experiment);
+trials_to_exclude = [];
+trials_to_exclude = get_trials_to_exclude(mouseID, date_of_experiment);
+% assume trial struct and trajectory struct are already created and saved
+% load trial struct and trajectroy struct if not loaded yet
+loaded_ouput = load_latest_file('trial', 'trial_events*', path_to_save);
+trial = loaded_ouput.trial;
+loaded_ouput = load_latest_file('trajectory_struct', 'trajectory_struct*', path_to_save);
+trajectory_struct = loaded_ouput.trajectory_struct;
+
+%
 f1=figure;
-ax1 = axes ;
+%ax1 = axes ;
 X1=[];
 Y1=[];
 for trial_ind=1:length(trial)
@@ -19,9 +36,22 @@ for trial_ind=1:length(trial)
         end
     end
 end
-
-%%
-ax1 = axes ;
+%
+disp('------------------')
+mouseID = 'CB005';
+fps = 200;
+date_of_experiment = '061721';
+path_to_save = fullfile('S:\all_analysis_results\', mouseID, date_of_experiment);
+trials_to_exclude = [];
+trials_to_exclude = get_trials_to_exclude(mouseID, date_of_experiment);
+% assume trial struct and trajectory struct are already created and saved
+% load trial struct and trajectroy struct if not loaded yet
+loaded_ouput = load_latest_file('trial', 'trial_events*', path_to_save);
+trial = loaded_ouput.trial;
+loaded_ouput = load_latest_file('trajectory_struct', 'trajectory_struct*', path_to_save);
+trajectory_struct = loaded_ouput.trajectory_struct;
+%
+%ax1 = axes ;
 X2=[];
 Y2=[];
 for trial_ind=1:length(trial)
@@ -40,19 +70,22 @@ for trial_ind=1:length(trial)
     end
 end
 
-%%
+
 color_1=[0.9290, 0.6940, 0.1250];%yellowish color
+%color_1=[0.6350 0.0780 0.1840];%redish color
 color_2=[0.4940, 0.1840, 0.5560];%purple ish color	
+%color_2=[0.4660 0.6740 0.1880];%greenish color
 ax1=gca;
 plot(ax1,X1,Y1,'-o','LineWidth',2,'Color',color_1)
 hold on
 plot(ax1,X2,Y2,'-o','LineWidth',2,'Color',color_2)
+ylim([0 90])
 ylabel("max nose distance")
 xlabel("normalized trial index")
-title("CB005 max nose distances of every perturbation trials")
+%title("CB005 max nose distances of every perturbation trials")
 set(ax1,'fontname','Arial')
 set(ax1,'FontSize',12); % make text larger
-legend("first day","last day")
+legend("first day of large pert.(session #6)","last day of large pert.(session #16)",'Location','northoutside')
 %xticks(ax1,[0:1:length(trial)])
 %%
 f1=gcf
